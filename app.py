@@ -57,22 +57,21 @@ if st.button('Recommend'):
 
 import os
 import pickle
-import gdown  # Make sure gdown is installed
+import gdown  # Install this in your requirements.txt
 
 # Google Drive file ID
 FILE_ID = "1MHyqeQBEuZ2p44FdIH1dRxCMOFTFa14r"
 OUTPUT_FILE = "similarity.pkl"
 
-# Download the file if it doesn't exist
+# Check if file exists; if not, download it
 if not os.path.exists(OUTPUT_FILE):
     url = f"https://drive.google.com/uc?id={FILE_ID}"
     print("Downloading similarity.pkl from Google Drive...")
     gdown.download(url, OUTPUT_FILE, quiet=False)
+    print("Download complete!")
 
-# Load the file
+# Load the pickle file
 with open(OUTPUT_FILE, "rb") as f:
     similarity = pickle.load(f)
 
 print("similarity.pkl loaded successfully!")
-
-# Your existing Flask/FastAPI/Streamlit code here...
