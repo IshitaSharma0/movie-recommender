@@ -79,3 +79,7 @@ with open(output_path, "rb") as f:
     similarity = pickle.load(f)
 
 print("File loaded successfully!")
+
+if __name__ == "__main__":
+    import os
+    os.system("streamlit run app.py")
