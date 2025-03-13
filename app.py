@@ -3,6 +3,15 @@ import pickle
 import pandas as pd
 import requests
 
+import gdown
+import os
+
+if not os.path.exists("similarity.pkl"):
+    print("Downloading similarity.pkl from Google Drive...")
+    url = 'https://drive.google.com/uc?id=1MHyqeQBEuZ2p44FdIH1dRxCMOFTFa14r'  # Your Google Drive file ID
+    gdown.download(url, "similarity.pkl", quiet=False)
+
+
 def fetch_poster(movie_id):
     response= requests.get('http://api.themoviedb.org/3/movie/{}?api_key=8265bd1679663a7ea12ac168da84d2e8&language=en-US'.format(movie_id))
     data= response.json()
@@ -55,10 +64,18 @@ if st.button('Recommend'):
         st.text(names[4])
         st.image(posters[4])
 
-import gdown
-import os
 
-if not os.path.exists("similarity.pkl"):
+# Google Drive file ID (Extract from your Google Drive link)
+file_id = "1MHyqeQBEuZ2p44FdIH1dRxCMOFTFa14r"
+output_path = "similarity.pkl"
+
+# Download the file if it doesn't exist
+if not os.path.exists(output_path):
     print("Downloading similarity.pkl from Google Drive...")
-    url = 'https://drive.google.com/uc?id=1MHyqeQBEuZ2p44FdIH1dRxCMOFTFa14r'  # Your Google Drive file ID
-    gdown.download(url, "similarity.pkl", quiet=False)
+    gdown.download(f"https://drive.google.com/uc?id={file_id}", output_path, quiet=False)
+
+# Load the file
+with open(output_path, "rb") as f:
+    similarity = pickle.load(f)
+
+print("File loaded successfully!")
