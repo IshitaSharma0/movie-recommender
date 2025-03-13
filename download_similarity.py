@@ -1,18 +1,19 @@
-import gdown
 import os
+import gdown
+import pickle
 
-def download_similarity_file():
-    # Google Drive File ID
-    file_id = "1MHyqeQBEuZ2p44FdIH1dRxCMOFTFa14r"
-    output_file = "similarity.pkl"
+# Google Drive file ID (Extract from your Google Drive link)
+file_id = "1MHyqeQBEuZ2p44FdIH1dRxCMOFTFa14r"
+output_path = "similarity.pkl"
 
-    # Check if file exists, if not, download it
-    if not os.path.exists(output_file):
-        print("Downloading similarity.pkl from Google Drive...")
-        gdown.download(f"https://drive.google.com/uc?id={file_id}", output_file, quiet=False)
-        print("Download complete!")
-    else:
-        print("Model file already exists!")
+# Download the file if it doesn't exist
+if not os.path.exists(output_path):
+    print("Downloading similarity.pkl from Google Drive...")
+    gdown.download(f"https://drive.google.com/uc?id={file_id}", output_path, quiet=False)
 
-if __name__ == "__main__":
-    download_similarity_file()
+# Load the file
+with open(output_path, "rb") as f:
+    similarity = pickle.load(f)
+
+print("File loaded successfully!")
+
