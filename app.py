@@ -55,3 +55,10 @@ if st.button('Recommend'):
         st.text(names[4])
         st.image(posters[4])
 
+import gdown
+import os
+
+if not os.path.exists("similarity.pkl"):
+    print("Downloading similarity.pkl from Google Drive...")
+    url = 'https://drive.google.com/uc?id=1MHyqeQBEuZ2p44FdIH1dRxCMOFTFa14r'  # Your Google Drive file ID
+    gdown.download(url, "similarity.pkl", quiet=False)
